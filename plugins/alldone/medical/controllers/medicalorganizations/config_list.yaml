@@ -1,0 +1,12 @@
+list: $/alldone/medical/models/medicalorganization/columns.yaml
+modelClass: Alldone\Medical\Models\MedicalOrganization
+title: MedicalOrganizations
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'alldone/medical/medicalorganizations/update/:id'

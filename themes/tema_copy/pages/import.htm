@@ -1,0 +1,89 @@
+url="import"
+layout="white"
+==
+<?php 
+    function onSubmit() {
+
+        use PhpOffice\PhpSpreadsheet\IOFactory;
+        use PhpOffice\PhpSpreadsheet\Spreadsheet;
+     
+        $filePath = input('file');
+   if($filePath) {
+            $spreadsheet = IOFactory::load($filePath);
+
+
+            $medicalOrganizationsSheet = $spreadsheet->getSheetByName('Список МО');
+            $medicalOrganizations = $medicalOrganizationsSheet->toArray(null, true, true, true);
+
+            foreach ($medicalOrganizations as $index => $row) {
+                if ($index == 1) continue;
+
+                \Alldone\Medical\Models\MedicalOrganization::create([
+                    'name' => $row['B'],
+                    'branch_name' => $row['C'],
+                    'branch_address' => $row['D'],
+                    'latitude' => $row['E'],
+                    'longitude' => $row['F'],
+                    'type' => $row['G'],
+                    'participation_in_distribution' => $row['H'] === 'да',
+                    'day_hospital_department' => $row['I'] === 'да',
+                    'doctor_amubulatory_department' => $row['J'] === 'да',
+                    'attached_population' => $row['W'],
+                    'number_of_visits' => $row['AF'],
+                ]);
+            }
+            $staffScheduleSheet = $spreadsheet->getSheetByName('Штатное расписание');
+            $staffSchedule = $staffScheduleSheet->toArray(null, true, true, true);
+
+            foreach ($staffSchedule as $index => $row) {
+                if ($index == 1) continue; 
+
+                $organization = \Alldone\Medical\Models\MedicalOrganization::where('name', $row['A'])->first();
+                if (!$organization) continue;
+
+                $position = \Alldone\Medical\Models\Position::firstOrCreate(['name' => $row['D']]);
+
+                \Alldone\Medical\Models\Vacancy::create([
+                    'medical_organization_id' => $organization->id,
+                    'position_id' => $position->id,
+                    'total_positions' => $row['E'],
+                    'occupied_positions' => $row['F'],
+                    'physical_persons' => $row['G'],
+                    'external_part_timers' => $row['H'],
+                ]);
+            }
+   }
+            $filePath1 = input('file1');
+        if($filePath1){
+            $spreadsheet1 = IOFactory::load($filePath1);
+             $mds = $spreadsheet1->getSheetByName('Нормативы');
+            $data = $mds->toArray(null, true, true, true);
+       
+            foreach ($data as $index => $row) {
+                if ($index == 1) continue; 
+    
+                     $position = \Alldone\Medical\Models\Position::where('name',$row['B'])->first();
+                     if($position) {           
+                             $position->condition = str_replace([',','.',' '],'',$row['E']);
+                $position->unit = $row['F'];
+                $position->recommended_staffing = $row['G'];
+                $position->save();
+                     }
+                
+            }
+        }
+        return [
+            "#info" => 'Успешно импортировано'
+        ];
+    }
+?>
+==
+<div class="container">
+    <form data-request="onSubmit" files="true" data-request-files>
+        <label>Список МО<input type="file" name="file" id=""></label><br>
+        <label>Нормативы<input type="file" name="file1" id=""></label><br>
+        <input type="submit" value="Загрузить файл"><br>
+    </form>
+
+    <div id="info"></div>
+</div>

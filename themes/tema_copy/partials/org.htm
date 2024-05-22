@@ -1,0 +1,76 @@
+==
+<?function onStart(){
+    $this['med_orgs'] = Alldone\Medical\Models\MedicalOrganization::all();
+    $position = $this["vac"]->position;
+    $this["pos_vacancies"] = $position->vacancies;
+    $this['calcAdded'] = $this['people'] ? $this['people'] / $this['vac']->position->condition * $this['vac']->position->recommended_staffing : 0;
+}?>
+==
+На {{vac.position.condition}} {{vac.position.unit}} полагается {{ vac.position.recommended_staffing}} {{vac.position.name}}<br>
+{% if people %}При добавлении {{people}} {{vac.position.unit}} требуется еще {{calcAdded}} {{vac.position.name}} {%endif%}
+<div style="width: 100%; margin: auto;display: flex;flex-wrap:wrap">
+    <canvas style="max-width:50%" id="myPieChart"></canvas>
+    <canvas   style="max-width:50%" id="columnChart"></canvas>
+</div>
+
+<script>
+    var ctx = document.getElementById('myPieChart').getContext('2d');
+    var data = {
+        labels: ['Количество занятых единиц', 'Нехватка штатных единиц'],
+        datasets: [{
+            data: [{{ vac.occupied_positions }}, {{ vac.total_positions + calcAdded - vac.occupied_positions }}],
+        backgroundColor: ['#FF6384', '#36A2EB'],
+        hoverBackgroundColor: ['#FF6384', '#36A2EB']
+            }]
+        };
+    var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    enabled: true
+                }
+            }
+        }
+    });
+
+
+    var ctx1 = document.getElementById('columnChart').getContext('2d');
+
+    var columnChart = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: [{% for pos_vac in pos_vacancies %}  {% if pos_vac.total_positions != 0 %} "{{pos_vac.medical_organization.name}}",  {% endif %}{% endfor %}],
+            datasets: [{
+                label: 'Обеспеченность вакантных мест %',
+                data: [{% for pos_vac in pos_vacancies%} {% if pos_vac.total_positions != 0 %} {{pos_vac.occupied_positions /(pos_vac.total_positions + calcAdded)  * 100 }},  {% endif %} {% endfor %}], // Начальные данные
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }, {
+     
+        label: 'Норма',
+            data: [{% for pos_vac in pos_vacancies %} {% if pos_vac.total_positions != 0 %} 100, {% endif %} {% endfor %}],
+            type: 'line',
+                order: 0,
+                        backgroundColor: 'red',
+                borderColor: 'red',
+    
+            
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                }
+            }
+        }
+    });
+</script>

@@ -1,0 +1,22 @@
+columns:
+    id:
+        label: id
+        type: text
+    name:
+        label: name
+        type: text
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime
+    condition:
+        label: condition
+        type: text
+    unit:
+        label: unit
+        type: text
+    recommended_staffing:
+        label: recommended_staffing
+        type: number

@@ -1,0 +1,14 @@
+v1.0.1:
+    - 'Initialize plugin'
+v1.0.2:
+    - Init
+    - migration_102.php
+v1.0.3:
+    - 'Updated table alldone_medical_vacancies'
+    - builder_table_update_alldone_medical_vacancies.php
+v1.0.4:
+    - 'pos fix'
+    - migration_104.php
+v1.0.5:
+    - 'Updated table alldone_medical_positions'
+    - builder_table_update_alldone_medical_positions.php

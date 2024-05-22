@@ -1,0 +1,43 @@
+columns:
+    id:
+        label: id
+        type: text
+    name:
+        label: name
+        type: text
+    branch_name:
+        label: branch_name
+        type: text
+    branch_address:
+        label: branch_address
+        type: text
+    latitude:
+        label: latitude
+        type: text
+    longitude:
+        label: longitude
+        type: text
+    type:
+        label: type
+        type: text
+    participation_in_distribution:
+        label: participation_in_distribution
+        type: text
+    day_hospital_department:
+        label: day_hospital_department
+        type: text
+    doctor_amubulatory_department:
+        label: doctor_amubulatory_department
+        type: text
+    attached_population:
+        label: attached_population
+        type: number
+    number_of_visits:
+        label: number_of_visits
+        type: number
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime

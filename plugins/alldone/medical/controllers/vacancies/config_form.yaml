@@ -1,0 +1,10 @@
+name: Vacancies
+form: $/alldone/medical/models/vacancy/fields.yaml
+modelClass: Alldone\Medical\Models\Vacancy
+defaultRedirect: alldone/medical/vacancies
+create:
+    redirect: 'alldone/medical/vacancies/update/:id'
+    redirectClose: alldone/medical/vacancies
+update:
+    redirect: alldone/medical/vacancies
+    redirectClose: alldone/medical/vacancies

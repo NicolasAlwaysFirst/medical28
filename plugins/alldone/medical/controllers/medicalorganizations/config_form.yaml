@@ -1,0 +1,10 @@
+name: MedicalOrganizations
+form: $/alldone/medical/models/medicalorganization/fields.yaml
+modelClass: Alldone\Medical\Models\MedicalOrganization
+defaultRedirect: alldone/medical/medicalorganizations
+create:
+    redirect: 'alldone/medical/medicalorganizations/update/:id'
+    redirectClose: alldone/medical/medicalorganizations
+update:
+    redirect: alldone/medical/medicalorganizations
+    redirectClose: alldone/medical/medicalorganizations

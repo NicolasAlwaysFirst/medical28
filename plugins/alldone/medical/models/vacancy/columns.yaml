@@ -1,0 +1,32 @@
+columns:
+    id:
+        label: id
+        type: text
+    medical_organization_id:
+        label: medical_organization_id
+        type: number
+        select: name
+        relation: medical_organization
+    position_id:
+        label: position_id
+        type: number
+        select: name
+        relation: position
+    total_positions:
+        label: total_positions
+        type: number
+    occupied_positions:
+        label: occupied_positions
+        type: number
+    physical_persons:
+        label: physical_persons
+        type: number
+    external_part_timers:
+        label: external_part_timers
+        type: number
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime

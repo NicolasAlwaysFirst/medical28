@@ -1,0 +1,55 @@
+url="/org/:id"
+layout="white"
+==
+<?php
+    function onStart() {
+        $id = $this['id'] = $this->param('id');
+        $this['org'] = Alldone\Medical\Models\MedicalOrganization::find($id);
+    }
+
+    function onChangeFirstSelect () {
+        $vacId = input('firstSelect');
+        $this['vac'] = Alldone\Medical\Models\Vacancy::find($vacId);
+        if($vacId)
+            return ["#info"=>$this->renderPartial('org'),   "#addBtn"=>'          <input type="text" name="people" id="">
+            <input type="submit" value="Прикрепить '.$this['vac']->position->unit.' к больнице">'];
+        else 
+            return ["#info"=>"Выберите должность"];
+    }
+
+    function onSubmit() {
+        $vacId = input('firstSelect');
+        $people = input('people');
+        $this['vac'] = Alldone\Medical\Models\Vacancy::find($vacId);
+        $this['people'] = $people;
+        if($vacId)
+            return ["#info"=>$this->renderPartial('org'),
+        "#addBtn"=>'          <input type="text" name="people" id="">
+            <input type="submit" value="Прикрепить '.$this['vac']->position->unit.' к больнице">'];
+        else 
+            return ["#info"=>"Выберите должность"];
+    }
+?>
+==
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="container">
+    {{ org.name }}<br>
+    Тип МО: {{ org.type }}<br>
+    Количество прикрепленных пациентов: {{ org.attached_population }}<br>
+    <form data-request="onSubmit">
+        <div>
+            <select id="firstSelect" name="firstSelect" data-request="onChangeFirstSelect">
+                <option value="">-- Выберите должность --</option>
+                {% for vac in org.vacancies %}
+                    <option value="{{ vac.id }}" >{{ vac.position.name }} {%if not vac.total_positions %}(НЕТ ДАННЫХ) {% endif %}</option>
+                {% endfor %}
+            </select>
+
+           <div id="addBtn">
+  
+            </div>
+        </div>
+    </form>
+    <div id="info">
+    </div>
+</div>

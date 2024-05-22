@@ -927,4 +927,9 @@ a:focus {
 .footer_section p a {
   color: inherit;
 }
+.qqq {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row-reverse;
+}
 /*# sourceMappingURL=style.css.map */

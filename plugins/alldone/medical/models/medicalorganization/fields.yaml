@@ -1,0 +1,57 @@
+fields:
+    id:
+        label: Id
+        span: auto
+        type: number
+    name:
+        label: Name
+        span: auto
+        type: text
+    branch_name:
+        label: 'Branch name'
+        span: auto
+        type: text
+    branch_address:
+        label: 'Branch address'
+        span: auto
+        type: text
+    latitude:
+        label: Latitude
+        span: auto
+        type: number
+    longitude:
+        label: Longitude
+        span: auto
+        type: number
+    type:
+        label: Type
+        span: auto
+        type: text
+    participation_in_distribution:
+        label: 'Participation in distribution'
+        span: auto
+        type: checkbox
+    day_hospital_department:
+        label: 'Day hospital department'
+        span: auto
+        type: checkbox
+    doctor_amubulatory_department:
+        label: 'Doctor amubulatory department'
+        span: auto
+        type: checkbox
+    attached_population:
+        label: 'Attached population'
+        span: auto
+        type: number
+    number_of_visits:
+        label: 'Number of visits'
+        span: auto
+        type: number
+    created_at:
+        label: 'Created at'
+        span: auto
+        type: datepicker
+    updated_at:
+        label: 'Updated at'
+        span: auto
+        type: datepicker

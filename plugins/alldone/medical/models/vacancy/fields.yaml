@@ -1,0 +1,37 @@
+fields:
+    id:
+        label: Id
+        span: auto
+        type: number
+    medical_organization_id:
+        label: 'Medical organization id'
+        span: auto
+        type: number
+    position_id:
+        label: 'Position id'
+        span: auto
+        type: number
+    total_positions:
+        label: 'Total positions'
+        span: auto
+        type: number
+    occupied_positions:
+        label: 'Occupied positions'
+        span: auto
+        type: number
+    physical_persons:
+        label: 'Physical persons'
+        span: auto
+        type: number
+    external_part_timers:
+        label: 'External part timers'
+        span: auto
+        type: number
+    created_at:
+        label: 'Created at'
+        span: auto
+        type: datepicker
+    updated_at:
+        label: 'Updated at'
+        span: auto
+        type: datepicker

@@ -1,0 +1,24 @@
+plugin:
+    name: 'alldone.medical::lang.plugin.name'
+    description: 'alldone.medical::lang.plugin.description'
+    author: AllDone
+    icon: oc-icon-adjust
+    homepage: ''
+navigation:
+    db:
+        label: БД
+        url: /
+        icon: icon-life-ring
+        sideMenu:
+            med_org:
+                label: 'Медицинские организации'
+                url: alldone/medical/medicalorganizations
+                icon: icon-sitemap
+            postions:
+                label: Должности
+                url: alldone/medical/positions
+                icon: icon-sitemap
+            vacancies:
+                label: Вакансии
+                url: alldone/medical/vacancies
+                icon: icon-sitemap
